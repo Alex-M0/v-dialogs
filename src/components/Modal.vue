@@ -20,7 +20,7 @@
                             <h3 v-text="titleBar"></h3>
                         </div>
 
-                        <div class="v-dialog-body" :style="{height:bodyHeight+'px'}" >
+                        <div class="v-dialog-body" :style="{height: bodyHeight ? bodyHeight+'px': '100%'}" >
                             <component :is="component" v-bind="params" @close="modalClose"></component>
                         </div>
 
@@ -87,7 +87,15 @@
             max(){
                 if(!this.animate) this.animate = true;
                 this.maximize = !this.maximize;
-                this.modalAdjust();
+				
+				if (this.maximize){
+					this.bodyHeight = false;
+				}
+				else {
+					this.bodyHeight = this.height - this.$refs.header.offsetHeight;
+				}
+				
+				this.modalAdjust();
             },
             modalAdjust(){
                 if(this.maximize) this.dialogTop = 0;
