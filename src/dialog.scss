@@ -42,7 +42,18 @@ div.v-dialog {
     div.v-dialog-header {
         padding: 0;border-bottom: 2px solid #cdcdcd;
         /*background-color: #EEEEEE;*/
-        h3 { margin: 0;line-height: 42px;height: 42px;font-size: 18px;padding-left: 15px; }
+        h3 {
+            margin: 0;
+            line-height: 42px;
+            height: 42px;
+            font-size: 18px;
+            padding-left: 15px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            cursor: default;
+        }
+
         button{
             -webkit-transition: all .5s cubic-bezier(.175,.885,.32,1);
             transition: all .5s cubic-bezier(.175,.885,.32,1);
@@ -56,6 +67,7 @@ div.v-dialog {
             float: right;
             border: 0;
             background-color: transparent;
+            cursor: pointer;
             &:hover { opacity: 1; }
             &.v-dialog-btn__close { font-weight: normal; }
             &.v-dialog-btn__close:hover { background-color: #E81123;color: white; }
