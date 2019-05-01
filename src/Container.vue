@@ -16,6 +16,7 @@
                   :dialogCloseButton="dlg.dialogCloseButton"
                   :dialogMaxButton="dlg.dialogMaxButton"
                   :fullWidth="dlg.fullWidth"
+                  :fullScreen="dlg.fullScreen"
                   :position="dlg.position"
                   :singletonKey="dlg.singletonKey"
                   :customClass="dlg.customClass"

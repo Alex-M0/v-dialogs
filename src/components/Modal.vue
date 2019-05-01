@@ -50,8 +50,17 @@
             /**
              * Full screen dialog
              * @type boolean
+             * @deprecated Use fullScreen option
              */
             fullWidth: {
+                type: Boolean,
+                default: false
+            },
+            /**
+             * Show modal in full screen dialog (maximize)
+             * @type boolean
+             */
+            fullScreen: {
                 type: Boolean,
                 default: false
             },
@@ -94,7 +103,7 @@
 				else {
 					this.bodyHeight = this.height - this.$refs.header.offsetHeight;
 				}
-				
+
 				this.adjust();
             },
 
@@ -109,7 +118,15 @@
                     this.bodyHeight = this.height - headerHeight;
                 }else this.bodyHeight = this.height;
 
-                this.adjust();
+                /**
+                 * fullWidth option deprecated.
+                 */
+                if (this.fullScreen || this.fullWidth){
+                    this.max();
+                }
+                else {
+                    this.adjust();
+                }
             });
         }
     }
