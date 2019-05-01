@@ -17,7 +17,7 @@
                                     v-if="dialogMaxButton" @click="max" >
                                 <i :class="['dlg-icon-font', maximize?'dlg-icon-restore':'dlg-icon-max']"></i>
                             </button>
-                            <h3 v-text="titleBar" :title="titleBar"></h3>
+                            <h3 v-html="titleBar"></h3>
                         </div>
 
                         <div class="v-dialog-body" :style="{height: bodyHeight ? bodyHeight+'px': '100%'}" >
