@@ -95,12 +95,9 @@
 					this.bodyHeight = this.height - this.$refs.header.offsetHeight;
 				}
 				
-				this.modalAdjust();
+				this.adjust();
             },
-            modalAdjust(){
-                if(this.maximize) this.dialogTop = 0;
-                else this.adjust();
-            },
+
             modalClose(data){
                 this.closeDialog(false, data);
             }
@@ -112,7 +109,7 @@
                     this.bodyHeight = this.height - headerHeight;
                 }else this.bodyHeight = this.height;
 
-                this.modalAdjust();
+                this.adjust();
             });
         }
     }

@@ -100,8 +100,20 @@ export default {
          * adjust position and size
          */
         adjust(){
+            if (this.type == 'modal' && this.maximize){
+                this.dialogTop = 0;
+                return;
+            }
+
             const browserHeight = window.innerHeight || document.documentElement.clientHeight;
-            this.dialogTop = (browserHeight - this.height) / 2;
+            const dialogTop = (browserHeight - this.height) / 2;
+
+            if (dialogTop < 0){
+                this.dialogTop = 0;
+            }
+            else {
+                this.dialogTop = dialogTop;
+            }
         },
         /**
          * Close current dialog
