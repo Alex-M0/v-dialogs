@@ -21,7 +21,7 @@
                         </div>
 
                         <div class="v-dialog-body" :style="{height: bodyHeight ? bodyHeight+'px': '100%'}" >
-                            <component :is="component" v-bind="params" @close="modalClose"></component>
+                            <component :is="component" v-bind="params" @close="modalClose" @set-before-close="setBeforeClose"></component>
                         </div>
 
                     </div>
@@ -76,7 +76,8 @@
         data(){
             return {
                 maximize: false,
-                animate: false
+                animate: false,
+                beforeCloseCallback: null
             };
         },
         computed: {
@@ -109,7 +110,14 @@
 
             modalClose(data){
                 this.closeDialog(false, data);
-            }
+            },
+
+            /**
+             * Set beforeClose callback
+             */
+            setBeforeClose(callback){
+                this.beforeCloseCallback = callback;
+            },
         },
         mounted(){
             this.$nextTick(()=>{

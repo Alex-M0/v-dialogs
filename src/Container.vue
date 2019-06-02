@@ -217,7 +217,7 @@
                     this.dialogs = this.dialogs.filter(val => val.dialogKey !== key);
                     this.$nextTick(()=>{
                         if(dlg.callback && typeof dlg.callback === 'function' && !cancel) dlg.callback(data);
-                        if(cancel && dlg.cancelCallback && typeof dlg.cancelCallback === 'function') dlg.cancelCallback();
+                        if(cancel && dlg.cancelCallback && typeof dlg.cancelCallback === 'function') dlg.cancelCallback(data);
                     });
                 }
             },
