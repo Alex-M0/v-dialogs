@@ -1,8 +1,8 @@
 {
-  "name": "v-dialogs",
+  "name": "v-dialogs-forked",
   "description": "A simple and powful dialog, dialog type including Modal, Alert, Mask and Toast, based on Vue2.x",
-  "version": "2.1.1",
-  "author": "TerryZ <terry5@foxmail.com>",
+  "version": "2.1.2",
+  "author": "Alex-M0 <gitbox@meta.ua>",
   "license": "MIT",
   "main": "dist/v-dialogs.js",
   "scripts": {
@@ -24,7 +24,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/TerryZ/v-dialog.git"
+    "url": "https://github.com/Alex-M0/v-dialogs.git"
   },
   "dependencies": {
     "vue": "^2.5.21"
