@@ -20,6 +20,7 @@ div.v-dialog {
             -webkit-border-radius: 0;
             -moz-border-radius: 0;
             border-radius: 0;
+            padding-bottom: 44px; /* Added for normal show overflow content (div.v-dialog-header) */
         }
         div.v-dialog-header { background-color: #eee; }
     }
