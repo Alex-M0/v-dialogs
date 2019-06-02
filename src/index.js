@@ -4,27 +4,65 @@
 import container from './Container';
 
 const Plugin = {
-    install(Vue, options = {}){
-        const Dialog = Vue.component(container.name, container), dlg = new Dialog();
+    install: function (Vue, options = {}) {
+        const Dialog = Vue.component(container.name, container);
+        const dlg = new Dialog();
+
         document.body.appendChild(dlg.$mount().$el);
 
-        const mergeParams = (p)=>{
+        /**
+         * Added custom language to plugin
+         * ....
+         * languages: {
+         *     uk: {
+         *         ....
+         *     }
+         * }
+         * ....
+         */
+        if (typeof options.languages == 'object'){
+            dlg.addLanguage(options.languages);
+        }
+
+        const mergeParams = (p) => {
             const params = {};
+
             params.language = typeof options.language === 'string' ? options.language : 'cn';
-            if(typeof options.dialogCloseButton === 'boolean') params.dialogCloseButton = options.dialogCloseButton;
-            if(typeof options.dialogMaxButton === 'boolean') params.dialogMaxButton = options.dialogMaxButton;
+
+            if (typeof options.dialogCloseButton === 'boolean'){
+                params.dialogCloseButton = options.dialogCloseButton;
+            }
+
+            if (typeof options.dialogMaxButton === 'boolean'){
+                params.dialogMaxButton = options.dialogMaxButton;
+            }
+
             return Object.assign({}, params, p);
-        }, paramSet = args => {
-			let params = {};
+        };
 
-			if(args.length === 3 && typeof args[2] === 'object') params = args[2];
-            if(args.length === 2 && typeof args[1] === 'object') params = args[1];
-			if(typeof args[1] === 'function') params.callback = args[1];
+        const paramSet = (args) => {
+            let params = {};
 
-			params = mergeParams(params);
-			params.message = typeof args[0] === 'string' ? args[0] : '';
-			return params;
-		}, instanceName = options.instanceName ? options.instanceName : '$dlg';
+            if (args.length === 3 && typeof args[2] === 'object'){
+                params = args[2];
+            }
+
+            if (args.length === 2 && typeof args[1] === 'object'){
+                params = args[1];
+            }
+
+            if (typeof args[1] === 'function'){
+                params.callback = args[1];
+            }
+
+            params = mergeParams(params);
+            params.message = typeof args[0] === 'string' ? args[0] : '';
+
+            return params;
+        };
+
+        const instanceName = options.instanceName ? options.instanceName : '$dlg';
+
         //dlg.rootInstance = new Vue();
         //console.log(dlg)
         //console.log(this)

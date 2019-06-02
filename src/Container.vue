@@ -89,6 +89,18 @@
                     return key;
                 }else return null;
             },
+
+            /**
+             * Add custom language
+             */
+            addLanguage (langList){
+                for(let lang in langList){
+                    if (langList.hasOwnProperty(lang)){
+                        languages[lang] = langList[lang];
+                    }
+                }
+            },
+
             /**
              * Open a Modal dialog
              * @param p - options
