@@ -146,8 +146,33 @@
                 }
 
                 config.iconClassName = alertIconClass[config.messageType];
-                config.width = config.message.length > 70 ? 700 : 450;
-                config.height = config.message.length > 70 ? 400 :  typeof config.title==='undefined'||typeof config.title==='string' ? 210 : 180;
+
+                // Ratio width and height
+                config.width = 450;
+
+                if (config.message.length > 70){
+                    config.width = (config.message.length / 2) + config.width;
+
+                    if (config.width > 700){
+                        config.width = 700;
+                    }
+                }
+
+                if (typeof config.title == 'undefined' || typeof config.title == 'string'){
+                    config.height = 210;
+                }
+                else {
+                    config.height = 180;
+                }
+
+                if (config.message.length > 70){
+                    config.height = (config.message.length / 2) + config.height;
+
+                    if (config.height > 400){
+                        config.height = 400;
+                    }
+                }
+                // ---
 
                 return this.buildDialog(config);
             },
