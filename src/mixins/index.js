@@ -72,7 +72,14 @@ export default {
         dialogIndex: {
             type: Number,
             required: true
-        }
+        },
+        /**
+         * Close dialog by press "Escape" button
+         */
+        escapeClose: {
+            type: Boolean,
+            default: true
+        },
     },
     inject: ['type'],
     data(){
@@ -164,6 +171,12 @@ export default {
                     // The actualResizeHandler will execute at a rate of 15fps
                 }, 100);
             }
+        },
+
+        onKeyupEvent(e){
+            if (e.key == 'Escape'){
+                this.closeDialog(true);
+            }
         }
     },
     mounted(){
@@ -171,9 +184,21 @@ export default {
         this.calcLayerLevel();
         this.autoClose();
 
-        if(this.type !== 'toast') window.addEventListener('resize', this.resizeThrottler, false);
+        if (this.escapeClose){
+            window.addEventListener('keyup', this.onKeyupEvent);
+        }
+
+        if(this.type !== 'toast'){
+            window.addEventListener('resize', this.resizeThrottler, false);
+        }
     },
     destroyed(){
-        if(this.type !== 'toast') window.removeEventListener('resize', this.resizeThrottler, false);
+        if (this.escapeClose){
+            window.removeEventListener('keyup', this.onKeyupEvent);
+        }
+
+        if(this.type !== 'toast'){
+            window.removeEventListener('resize', this.resizeThrottler, false);
+        }
     }
 };

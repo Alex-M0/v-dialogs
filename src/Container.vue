@@ -22,6 +22,7 @@
                   :customClass="dlg.customClass"
                   :iconClassName="dlg.iconClassName"
                   :i18n="dlg.i18n"
+                  :escapeClose="dlg.escapeClose"
                   :closeTime="dlg.closeTime"
                   :cancel="dlg.cancel"
                   :cancelCallback="dlg.cancelCallback"
