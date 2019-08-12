@@ -185,7 +185,7 @@ export default {
         this.autoClose();
 
         if (this.escapeClose){
-            window.addEventListener('keyup', this.onKeyupEvent);
+            this.$el.addEventListener('keyup', this.onKeyupEvent);
         }
 
         if(this.type !== 'toast'){
@@ -194,7 +194,7 @@ export default {
     },
     destroyed(){
         if (this.escapeClose){
-            window.removeEventListener('keyup', this.onKeyupEvent);
+          this.$el.removeEventListener('keyup', this.onKeyupEvent);
         }
 
         if(this.type !== 'toast'){
