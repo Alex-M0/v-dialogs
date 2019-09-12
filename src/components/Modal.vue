@@ -41,7 +41,10 @@
         name: "DialogModal",
         mixins: [mixins],
         props: {
-            component: Object,
+            /**
+             * Component object or dynamic import
+             */
+            component: Object | Promise,
             /**
              * Send parameters to Component
              * you need use props to receive this params in component
