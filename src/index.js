@@ -6,7 +6,7 @@ import container from './Container';
 const Plugin = {
     install: function (Vue, options = {}) {
         const Dialog = Vue.component(container.name, container);
-        const dlg = new Dialog();
+        const dlg = new Dialog(options.extends);
 
         document.body.appendChild(dlg.$mount().$el);
 
