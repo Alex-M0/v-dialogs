@@ -14,14 +14,14 @@
                                 <i class="dlg-icon-font dlg-icon-close"></i>
                             </button>
                             <button type="button" class="v-dialog-btn__maximize"
-                                    v-if="dialogMaxButton" @click="max" >
+                                    v-if="dialogMaxButton" @click="max(true)" >
                                 <i :class="['dlg-icon-font', maximize?'dlg-icon-restore':'dlg-icon-max']"></i>
                             </button>
                             <h3 v-html="titleBar"></h3>
                         </div>
 
                         <div class="v-dialog-body" :style="{height: bodyHeight ? bodyHeight+'px': '100%'}" >
-                            <component :is="component" v-bind="params" @close="modalClose" @set-before-close="setBeforeClose"></component>
+                            <component ref="component" :is="component" v-bind="params" @close="modalClose"></component>
                         </div>
 
                     </div>
@@ -80,7 +80,6 @@
             return {
                 maximize: false,
                 animate: false,
-                beforeCloseCallback: null
             };
         },
         computed: {
@@ -96,11 +95,21 @@
         methods: {
             /**
              * dialog max size
+             *
+             * Return false from onVModalBeforeResize abort resize
              */
-            max(){
+            max(trigger){
+                if (trigger && this.$refs.component && typeof this.$refs.component['onVModalBeforeResize'] == 'function'){
+                    let result = this.$refs.component['onVModalBeforeResize'](!this.maximize);
+
+                    if (result === false){
+                        return;
+                    }
+                }
+
                 if(!this.animate) this.animate = true;
                 this.maximize = !this.maximize;
-				
+
 				if (this.maximize){
 					this.bodyHeight = false;
 				}
@@ -113,13 +122,6 @@
 
             modalClose(data){
                 this.closeDialog(false, data);
-            },
-
-            /**
-             * Set beforeClose callback
-             */
-            setBeforeClose(callback){
-                this.beforeCloseCallback = callback;
             },
         },
         mounted(){

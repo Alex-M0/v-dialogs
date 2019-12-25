@@ -127,12 +127,11 @@ export default {
          * @param trigger [boolean] whether close dialog and trigger callback function
 		 * @param data [object] return data when dialog close(only for modal)
          *
-         * Calling beforeCloseCallback if set.
-         * Return false from beforeCloseCallback abort close dialog, return Object.data send to close event
+         * Return false from onVModalBeforeClose abort close dialog, return Object.data send to close event
          */
         closeDialog(trigger, data){
-            if (typeof this.beforeCloseCallback == 'function'){
-                let result = this.beforeCloseCallback(trigger);
+            if (this.$refs.component && typeof this.$refs.component['onVModalBeforeClose'] == 'function'){
+                let result = this.$refs.component['onVModalBeforeClose'](trigger);
 
                 if (result === false){
                     return;
