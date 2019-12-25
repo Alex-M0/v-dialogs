@@ -74,7 +74,13 @@
             dialogCloseButton: {
                 type: Boolean,
                 default: true
-            }
+            },
+            /**
+             * Triggered when user click on maximize or minimize button
+             *
+             * calling resizeCallback({boolean} maximize)
+             */
+            resizeCallback: Function,
         },
         data(){
             return {
@@ -118,6 +124,10 @@
 				}
 
 				this.adjust();
+
+				if (trigger && typeof this.resizeCallback == 'function'){
+                    this.resizeCallback(this.maximize);
+                }
             },
 
             modalClose(data){
