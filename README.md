@@ -1,19 +1,11 @@
-# v-dialogs-forked &middot; [![npm version](https://img.shields.io/npm/v/v-dialogs-forked.svg)](https://www.npmjs.com/package/v-dialogs) [![license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://mit-license.org/)
+# v-dialogs-forked &middot; 
+[![npm version](https://img.shields.io/npm/v/v-dialogs-forked.svg)](https://www.npmjs.com/package/v-dialogs-forked) 
+[![npm downloads](https://img.shields.io/npm/dy/v-dialogs-forked.svg)](https://www.npmjs.com/package/v-dialogs-forked) 
+[![license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://mit-license.org/)
 
 A simple and powerful dialog for **Vue2**, dialog type including **Modal**, **Alert**, **Mask** and **Toast**
 
 Forked from [v-dialogs](https://www.npmjs.com/package/v-dialogs)
-
-
-<br><br>
-
-## Demos and Documents
-Explorer on
-
-- [English site](https://terryz.github.io/vue/#/dialog)
-- [国内站点](https://terryz.gitee.io/vue/#/dialog)
-
-The jQuery version: [bDialog](https://github.com/TerryZ/bDialog)
 
 <br><br>
 
@@ -28,14 +20,15 @@ and control icon, toast icon used are come from [IconFont](http://www.iconfont.c
 ## Install
 
 ``` nodejs
-npm i v-dialogs --save
+npm i v-dialogs-forked --save
 ```
 
 Include plugin in your `main.js` file.
 
 ```js
 import Vue from 'vue'
-import vDialog from 'v-dialogs';
+import vDialog from 'v-dialogs-forked';
+
 Vue.use(vDialog, { global config options... });
 ```
 
