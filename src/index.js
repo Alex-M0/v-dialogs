@@ -1,5 +1,5 @@
 /**
- * v-dialogs
+ * v-dialogs-forked
  */
 import container from './Container';
 
@@ -8,7 +8,7 @@ const Plugin = {
         const Dialog = Vue.component(container.name, container);
         const dlg = new Dialog(options.extends);
 
-        document.body.appendChild(dlg.$mount().$el);
+        dlg.$mount(document.body.appendChild(document.createElement('div')));
 
         /**
          * Added custom language to plugin
@@ -61,55 +61,60 @@ const Plugin = {
             return params;
         };
 
-        const instanceName = options.instanceName ? options.instanceName : '$dlg';
+        const instanceName = options.instanceName || '$dlg';
 
-        //dlg.rootInstance = new Vue();
-        //console.log(dlg)
-        //console.log(this)
-        //console.log(Vue)
+        Object.defineProperty(Vue.prototype, instanceName, {
+            writable : false,
+            value: {
+                modal(component, params = {}) {
+                    if (!component) return;
+                    params = mergeParams(params);
+                    params.component = component;
 
-        Vue.prototype[instanceName] = {
-            modal(component, params = {}){
-                if(!component) return;
-                params = mergeParams(params);
-                params.component = component;
-                return dlg.addModal(params);
-            },
-			/**
-			 * Open a Alert dialog
-			 *
-			 * @param message[string](required)
-			 * @param callback[function](optional)
-			 * @param params[object](optional)
-			 * @returns dialog key[string]
-			 *
-			 * //open a information type Alert dialog
-			 * this.$dlg.alert('some message...')
-			 * //open a information type Alert dialog and do something after dialog close
-			 * this.$dlg.alert('some message...', ()=>{ do something... })
-			 * //open a Alert dialog with options
-			 * this.$dlg.alert('some message...', { messageType: 'error' })
-			 * //open a Alert dialog with callback and options
-			 * this.$dlg.alert('some message...', ()=>{ do something... }, { messageType: 'error' })
-			 */
-            alert(){
-                if(!arguments.length || !arguments[0]) return;
-                return dlg.addAlert(paramSet(arguments));
-            },
-            mask(){
-                return dlg.addMask(paramSet(arguments));
-            },
-            toast(){
-				if(!arguments.length || !arguments[0]) return;
-                return dlg.addToast(paramSet(arguments));
-            },
-            close(key){
-                dlg.close(key);
-            },
-            closeAll(callback){
-                dlg.closeAll(callback);
+                    return dlg.addModal(params);
+                },
+                /**
+                 * Open a Alert dialog
+                 *
+                 * @param message[string](required)
+                 * @param callback[function](optional)
+                 * @param params[object](optional)
+                 * @returns dialog key[string]
+                 *
+                 * //open a information type Alert dialog
+                 * this.$dlg.alert('some message...')
+                 * //open a information type Alert dialog and do something after dialog close
+                 * this.$dlg.alert('some message...', ()=>{ do something... })
+                 * //open a Alert dialog with options
+                 * this.$dlg.alert('some message...', { messageType: 'error' })
+                 * //open a Alert dialog with callback and options
+                 * this.$dlg.alert('some message...', ()=>{ do something... }, { messageType: 'error' })
+                 */
+                alert() {
+                    if (!arguments.length || !arguments[0]){
+                        return;
+                    }
+
+                    return dlg.addAlert(paramSet(arguments));
+                },
+                mask() {
+                    return dlg.addMask(paramSet(arguments));
+                },
+                toast() {
+                    if (!arguments.length || !arguments[0]){
+                        return;
+                    }
+
+                    return dlg.addToast(paramSet(arguments));
+                },
+                close(key) {
+                    dlg.close(key);
+                },
+                closeAll(callback) {
+                    dlg.closeAll(callback);
+                },
             }
-        };
+        });
     }
 };
 
