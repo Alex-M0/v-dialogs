@@ -90,9 +90,17 @@ export default {
             backdropZIndex: 0,
             resizeTimeout: null,
             shake: false,
-            show: false
+            show: false,
+            dialogWidth: 0,
+            dialogHeight: 0,
         };
     },
+
+    beforeMount() {
+        this.dialogWidth = this.width;
+        this.dialogHeight = this.height;
+    },
+
     methods: {
         /**
          * backdrop click animate
@@ -113,7 +121,7 @@ export default {
             }
 
             const browserHeight = window.innerHeight || document.documentElement.clientHeight;
-            const dialogTop = (browserHeight - this.height) / 2;
+            const dialogTop = (browserHeight - this.dialogHeight) / 2;
 
             if (dialogTop < 0){
                 this.dialogTop = 0;

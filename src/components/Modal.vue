@@ -4,7 +4,7 @@
              @click.self="outsideClick" >
 
             <div :class="['v-dialog-dialog', {'v-dialog-default-animated': animate}]"
-                 :style="{width:width+'px',height:height+'px',top:dialogTop+'px'}">
+                 :style="{width:dialogWidth+'px',height:dialogHeight+'px',top:dialogTop+'px'}">
                 <transition name="v-dialog--smooth" :appear="true" >
                     <div :class="['v-dialog-content']" v-show="show" >
 
@@ -21,7 +21,7 @@
                         </div>
 
                         <div class="v-dialog-body" :style="{height: bodyHeight ? bodyHeight+'px': '100%'}" >
-                            <component ref="component" :is="component" v-bind="params" @close="modalClose"></component>
+                            <component ref="component" :is="component" v-bind="params" v-on="handlers"></component>
                         </div>
 
                     </div>
@@ -86,6 +86,12 @@
             return {
                 maximize: false,
                 animate: false,
+                handlers: {
+                    close: this.modalClose,
+                    vModalSetSize: this.setSize,
+                    vModalChangeTitle: this.changeTitle,
+                    vModalResizeModal: this.resizeModal,
+                }
             };
         },
         computed: {
@@ -120,7 +126,7 @@
 					this.bodyHeight = false;
 				}
 				else {
-					this.bodyHeight = this.height - this.$refs.header.offsetHeight;
+					this.bodyHeight = this.dialogHeight - this.$refs.header.offsetHeight;
 				}
 
 				this.adjust();
@@ -133,13 +139,55 @@
             modalClose(data){
                 this.closeDialog(false, data);
             },
+
+            /**
+             * Change modal title
+             *
+             * @param {string} caption
+             */
+            changeTitle(caption){
+                this.titleBar = caption;
+            },
+
+            /**
+             * Change modal mode
+             *
+             * max - Maximize modal
+             * min - Minimize modal
+             *
+             * if not set switches modal
+             *
+             * @param {string=} type
+             */
+            resizeModal(type){
+                if (type && ((this.maximize && type == 'max') || (!this.maximize && type == 'min'))){
+                    return;
+                }
+
+                this.max(false);
+            },
+
+            /**
+             * Change modal size if minimized
+             *
+             * @param {object} params
+             * @param {number} params.width - Set modal width
+             * @param {number} params.height - Set modal height
+             */
+            setSize(params){
+                this.dialogWidth = params.width || this.dialogWidth;
+                this.dialogHeight = params.height || this.dialogHeight;
+            },
         },
         mounted(){
             this.$nextTick(()=>{
                 if(this.titleBar){
-                    const headerHeight = this.$refs.header.offsetHeight;//this.$refs.header.getBoundingClientRect().height;
-                    this.bodyHeight = this.height - headerHeight;
-                }else this.bodyHeight = this.height;
+                    const headerHeight = this.$refs.header.offsetHeight;
+                    this.bodyHeight = this.dialogHeight - headerHeight;
+                }
+                else {
+                    this.bodyHeight = this.dialogHeight;
+                }
 
                 /**
                  * fullWidth option deprecated.
