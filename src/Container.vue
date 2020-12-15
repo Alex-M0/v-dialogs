@@ -12,6 +12,8 @@
                   :contentClass="dlg.contentClass"
                   :width="dlg.width"
                   :height="dlg.height"
+                  :minHeight="dlg.minHeight"
+                  :maxHeight="dlg.maxHeight"
                   :params="dlg.params"
                   :dialogCloseButton="dlg.dialogCloseButton"
                   :dialogMaxButton="dlg.dialogMaxButton"

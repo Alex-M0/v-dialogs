@@ -20,7 +20,10 @@
                             <h3 v-html="titleBar"></h3>
                         </div>
 
-                        <div class="v-dialog-body" :style="{height: bodyHeight ? bodyHeight+'px': '100%'}" >
+                        <div
+                            class="v-dialog-body"
+                            :style="{height: modalHeight, 'min-height': minHeight > -1 ? minHeight + 'px' : modalHeight, 'max-height': maxHeight > -1 ? maxHeight + 'px' : false}"
+                        >
                             <component ref="component" :is="component" v-bind="params" v-on="handlers"></component>
                         </div>
 
@@ -102,7 +105,14 @@
                     'v-dialog--maximize': this.maximize,
                     'v-dialog--buzz-out': this.shake
                 };
-            }
+            },
+            modalHeight(){
+                if (this.bodyHeight){
+                    return this.bodyHeight + 'px';
+                }
+
+                return '100%';
+            },
         },
         methods: {
             /**

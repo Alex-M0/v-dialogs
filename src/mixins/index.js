@@ -42,6 +42,22 @@ export default {
             type: Number,
             default: 400
         },
+        /**
+         * Dialog min height
+         * @type number
+         */
+        minHeight: {
+            type: Number,
+            default: -1
+        },
+        /**
+         * Dialog max height
+         * @type number
+         */
+        maxHeight: {
+            type: Number,
+            default: -1
+        },
         i18n: Object,
         /**
          * Dialog inner key
