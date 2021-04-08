@@ -29,6 +29,7 @@
                   :cancel="dlg.cancel"
                   :cancelCallback="dlg.cancelCallback"
                   :resizeCallback="dlg.resizeCallback"
+				  :showCallback="dlg.showCallback"
                   @close="closeDialog"></v-dialog>
     </div>
 </template>

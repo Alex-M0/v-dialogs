@@ -84,6 +84,10 @@
              * calling resizeCallback({boolean} maximize)
              */
             resizeCallback: Function,
+            /**
+             * Triggered when dialog showed
+             */
+            showCallback: Function,
         },
         data(){
             return {
@@ -207,6 +211,10 @@
                 }
                 else {
                     this.adjust();
+                }
+
+                if (typeof this.showCallback == 'function'){
+                    this.showCallback();
                 }
             });
         }
