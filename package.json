@@ -1,7 +1,7 @@
 {
   "name": "v-dialogs-forked",
   "description": "A simple and powerful dialog, dialog type including Modal, Alert, Mask and Toast, based on Vue2.x",
-  "version": "2.3.7",
+  "version": "2.4.8",
   "author": "Alex-M0 <gitbox@meta.ua>",
   "license": "MIT",
   "main": "dist/v-dialogs.js",
